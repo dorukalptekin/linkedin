@@ -1,0 +1,91 @@
+# Weekly LinkedIn news agent: settings.
+# Edit this file to change what the agent looks for. The run procedure is in agent/instructions.md.
+
+schedule:
+  cadence: weekly
+  lookback_days: 7
+  # The UAE weekend is Sat–Sun. Weekday mornings in Dubai reach GCC readers before meetings start.
+  suggested_post_slot: "Tuesday–Thursday, 08:00–10:00 Gulf Standard Time"
+
+language: en
+
+regions:
+  - Middle East (GCC first: UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman; then the wider MENA)
+  - Türkiye
+  - Europe
+  # Global stories are allowed only if they have a clear angle for these regions.
+
+themes:
+  # Ranked by priority. Each theme maps to experience pillars in profile.md.
+  - name: Brand love, brand equity and building brands for the long term
+    pillars: [P1, P5]
+  - name: Revenue Growth Management (pricing, price-pack architecture, promo effectiveness, mix)
+    pillars: [P2, P3]
+  - name: Premiumization and trading up/down
+    pillars: [P3]
+  - name: Marketing through inflation, downturns and volatile consumer demand
+    pillars: [P4]
+  - name: Consumer and shopper insights, marketing effectiveness and measurement
+    pillars: [P5]
+  - name: AI, data and automation in FMCG marketing and commercial teams
+    pillars: [P6]
+  - name: FMCG go-to-market and channel shifts (quick commerce, e-grocery, modern vs traditional trade)
+    pillars: [P2]
+  - name: Marketing leadership, team building and the CMO role
+    pillars: [P7]
+
+content_types:
+  # The agent may go beyond news.
+  - news
+  - industry reports and surveys (Kantar, NielsenIQ, Circana, Euromonitor, McKinsey, BCG, Bain, Deloitte, WARC, IPA, System1, Ehrenberg-Bass)
+  - earnings calls and results of FMCG companies (pricing, volume and mix commentary)
+  - award-winning campaigns (Dubai Lynx, Effie MENA, Cannes Lions, Effie Europe)
+  - industry events (Gulfood, Cannes Lions, Dubai Lynx and similar)
+  - posts and interviews from FMCG CMOs and CEOs
+
+sources:
+  # All publications are trusted. These are starting points, not a whitelist.
+  middle_east: [Campaign Middle East, Communicate, Arabian Business, Gulf Business, The National, Khaleej Times, Gulf News, Zawya, AGBI, Retail ME, Asharq Al-Awsat (English)]
+  turkiye: [Daily Sabah, Hürriyet Daily News, Türkiye Today, Bloomberg HT (English coverage)]
+  europe: [Marketing Week, The Grocer, Campaign UK, The Drum, Marketing Beat, FoodNavigator, Just Food, Just Drinks, Retail Gazette, Euromonitor blog, Kantar insights]
+  global: [WARC, Ad Age, Adweek, Harvard Business Review, McKinsey Insights, BCG, Reuters, Financial Times, Bloomberg]
+
+off_limits:
+  # Never surface or draft posts about these. Skip a story when an excluded company is the main subject.
+  companies:
+    - The Coca-Cola Company and its bottlers (e.g. Coca-Cola HBC, Coca-Cola İçecek / CCI, Gulf Coca-Cola Beverages, Coca-Cola Europacific Partners)
+    - Coca-Cola brands (e.g. Coca-Cola, Fanta, Sprite, Schweppes where Coca-Cola owns it, Powerade, Costa Coffee, smartwater)
+    - PepsiCo and its bottlers (e.g. Pepsi bottlers and franchisees in GCC, Türkiye and Europe)
+    - PepsiCo brands (e.g. Pepsi, 7UP, Mountain Dew, Mirinda, Lay's, Doritos, Cheetos, Quaker, Gatorade)
+  topics:
+    - politics, geopolitics and consumer boycotts tied to politics
+    - confidential employer information (internal figures beyond what is already on the CV)
+
+ranking:
+  candidates_per_week: 5
+  # Engagement is the goal, so favour stories that let the author give an opinion and ask the audience a question.
+  score_weights:
+    relevance_to_themes: 0.30
+    fit_with_author_experience: 0.25
+    regional_relevance_for_dubai_fmcg_audience: 0.20
+    engagement_potential: 0.15   # surprising data, debate-worthy, practical takeaway
+    freshness: 0.10
+  dedupe_against: [history/surfaced.md, history/posts.csv]
+
+output:
+  folder: digests
+  filename: "YYYY-MM-DD.md"
+  per_candidate:
+    - headline, source, link and publication date
+    - region and theme
+    - two-line summary
+    - why the Dubai FMCG audience cares
+    - angle linked to a pillar in profile.md
+    - draft LinkedIn post
+  draft_post:
+    length_words: [150, 250]
+    structure: hook line → personal experience → insight → takeaway → question to the reader
+    hashtags: 3-5
+    link_placement: first comment (links in the post body tend to reduce reach)
+  extras:
+    - one evergreen post idea from the author's experience, not tied to the news
